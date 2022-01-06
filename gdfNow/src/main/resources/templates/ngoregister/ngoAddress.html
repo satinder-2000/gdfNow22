@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>NGO Address</h2>
+<form action="#" th:action="@{/ngoregister/ngoAddress}" th:object="${ngoAddressForm}" method="post">
+<table>
+<tr>
+<td>Address Line:</td>
+<td><input type="text" th:field="*{addressLine}" /></td>
+<td th:if="${#fields.hasErrors('addressLine')}" th:errors="*{addressLine}">NGO Name Error</td>
+</tr>
+
+<tr>
+<td>Phone:</td>
+<td><input type="text" th:field="*{phone}" /></td>
+<td th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</td>
+</tr>
+
+<tr>
+<td>Post Code:</td>
+<td><input type="text" th:field="*{postcode}" /></td>
+<td th:if="${#fields.hasErrors('postcode')}" th:errors="*{postcode}">Post Code Error</td>
+</tr>
+
+<tr>
+<td>City:</td>
+<td><input type="text" th:field="*{city}" /></td>
+<td th:if="${#fields.hasErrors('city')}" th:errors="*{city}">City Error</td>
+</tr>
+
+<tr>
+<td>State:</td>
+<td><input type="text" th:field="*{state}" /></td>
+<td th:if="${#fields.hasErrors('state')}" th:errors="*{state}">State Error</td>
+</tr>
+
+<tr>
+<td>Country:</td>
+<td><select th:field="*{countryCode}">
+	<option th:value="'IN'" th:text="India"></option>
+</select>
+</td>
+<td th:if="${#fields.hasErrors('countryCode')}" th:errors="*{countryCode}">Country Error</td>
+</tr>
+
+<tr>
+<td>
+<button type="submit">Submit</button>
+</td>
+</tr>
+
+
+
+</table>
+</form>
+
+
+
+</body>
+</html>

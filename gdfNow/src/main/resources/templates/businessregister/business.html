@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(
+	function() {
+		$.getJSON('/businessregister/categories', {
+			ajax : 'true'
+		}, function(data) {
+			var html = '<option value="">Choose One</option>';
+			var len = data.length;
+			for ( var i = 0; i < len; i++) {
+				html += '<option value="' + data[i] + '">'
+						+ data[i] + '</option>';
+			}
+			html += '</option>';
+                        //now that we have our options, give them to our select
+			$('#category').html(html);
+		});
+	});
+
+$(document).ready(function() { 
+	$('#category').change(
+		function() {
+			$.getJSON('/businessregister/subcategories', {
+				category : $(this).val(),
+				ajax : 'true'
+			}, function(data) {
+				var html = '<option value="">Choose One</option>';
+				var len = data.length;
+				for ( var i = 0; i < len; i++) {
+					html += '<option value="' + data[i] + '">'
+							+ data[i] + '</option>';
+				}
+				html += '</option>';
+ 
+				$('#subcategory').html(html);
+			});
+		});
+});
+</script>
+
+</head>
+<body>
+<h2>Business Details</h2>
+<form action="#" th:action="@{/businessregister/business}" th:object="${businessForm}" method="post" enctype="multipart/form-data">
+<table>
+<tr>
+<td>Business Name:</td>
+<td><input type="text" th:field="*{name}" /></td>
+<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Business Name Error</td>
+</tr>
+
+<tr>
+<td>Email:</td>
+<td><input type="email" th:field="*{email}" /></td>
+<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
+</tr>
+
+<tr>
+<td>Business Description:</td>
+<td><textarea cols="20" rows="25" th:field="*{description}"></textarea></td>
+<td th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</td>
+</tr>
+
+<tr>
+<td>Business Web Site:</td>
+<td><input type="text" th:field="*{website}" /></td>
+<td th:if="${#fields.hasErrors('website')}" th:errors="*{website}">Web Site Error</td>
+</tr>
+
+<tr>
+<td>Business Category:</td>
+<td><select id="category"  th:field="*{businessCategory}"  >
+</select>
+</td>
+<td th:if="${#fields.hasErrors('businessCategory')}" th:errors="*{businessCategory}">Category Error</td>
+</tr>
+
+<tr>
+<td>Business Sub Category:</td>
+<td><select id="subcategory"   th:field="*{businessSubCategory}">
+</select>
+</td>
+<td th:if="${#fields.hasErrors('businessSubCategory')}" th:errors="*{businessSubCategory}">Sub Category Error</td>
+</tr>
+
+<tr>
+<td>Profile Image:</td>
+<td><input type="file" th:field="*{profileImage}" /> </td>
+<td th:if="${#fields.hasErrors('profileImage')}" th:errors="*{profileImage}">Profile Image Errors</td>
+</tr>
+
+<tr>
+<td>
+<button type="submit">Continue</button>
+</td>
+</tr>
+
+
+</table>
+</form>
+</body>
+</html>

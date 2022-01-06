@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("button").click(function(){
+    $("p").hide();
+  });
+});
+</script>
+<script type="text/javascript">
+$(document).ready(
+	function() {
+		$.getJSON('/governmentregister/ministries', {
+			ajax : 'true'
+		}, function(data) {
+			var html = '<option value="">Choose One</option>';
+			var len = data.length;
+			for ( var i = 0; i < len; i++) {
+				html += '<option value="' + data[i] + '">'
+						+ data[i] + '</option>';
+			}
+			html += '</option>';
+            //now that we have our options, give them to our select
+			$('#ministry').html(html);
+		});
+	});
+
+$(document).ready(function() { 
+	$('#ministry').change(
+		function() {
+			$.getJSON('/governmentregister/departments', {
+				ministry : $(this).val(),
+				ajax : 'true'
+			}, function(data) {
+				var html = '<option value="">Choose One</option>';
+				var len = data.length;
+				for ( var i = 0; i < len; i++) {
+					html += '<option value="' + data[i] + '">'
+							+ data[i] + '</option>';
+				}
+				html += '</option>';
+ 
+				$('#department').html(html);
+			});
+		});
+});
+</script>
+
+</head>
+<body>
+<h2>Government Department /Agency Details</h2>
+<form action="#" th:action="@{/governmentregister/government}" th:object="${governmentForm}" method="post" enctype="multipart/form-data">
+<table>
+<tr>
+<td>Office Name:</td>
+<td><input type="text" th:field="*{name}" /></td>
+<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Office Name Error</td>
+</tr>
+
+<tr>
+<td>Email:</td>
+<td><input type="email" th:field="*{email}" /></td>
+<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
+</tr>
+
+<tr>
+<td>Office Function / Description:</td>
+<td><textarea cols="20" rows="25" th:field="*{description}"></textarea></td>
+<td th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</td>
+</tr>
+
+<tr>
+<td>Web Site:</td>
+<td><input type="text" th:field="*{website}" /></td>
+<td th:if="${#fields.hasErrors('website')}" th:errors="*{website}">Web Site Error</td>
+</tr>
+
+<tr>
+<td>Ministry:</td>
+<td><select id="ministry"  th:field="*{ministry}"  >
+</select>
+</td>
+<td th:if="${#fields.hasErrors('ministry')}" th:errors="*{ministry}">Ministry Error</td>
+</tr>
+
+<tr>
+<td>Department / Agency:</td>
+<td><select id="department"   th:field="*{department}">
+</select>
+</td>
+<td th:if="${#fields.hasErrors('department')}" th:errors="*{department}">Department Error</td>
+</tr>
+
+<tr>
+<td>Profile Image:</td>
+<td><input type="file" th:field="*{profileImage}" /> </td>
+<td th:if="${#fields.hasErrors('profileImage')}" th:errors="*{profileImage}">Profile Image Errors</td>
+</tr>
+
+<tr>
+<td>
+<button type="submit">Continue</button>
+</td>
+</tr>
+
+
+</table>
+</form>
+
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>User Registration</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<form action="/user/register" method="POST" enctype="multipart/form-data">
+	<h1>User Registration</h1>
+	<table>
+	<thead>
+		<tr>
+			<th colspan="2">Personal Details</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+		<td><label for="firstName">First Name</label></td>
+		<td><input type="text" id="firstName" name="firstName" placeholder="2-45 chars"  required="required"></td>
+		</tr>
+		<tr>
+		<td><label for="lastName">Last Name</label></td>
+		<td><input type="text" id="lastName" name="lastName" placeholder="2-45 chars" required="required"></td>
+		</tr>
+		<tr>
+		<td><label for="email">Email</label></td>
+		<td><input type="email" id="email" name="email" required="required"></td>
+		</tr>
+		<tr>
+		<td><label for="dob">Date Of Birth</label></td>
+		<td><input type="date" id="dob" name="dob" placeholder="Min age: 13 years" required="required"></td>
+		</tr>
+		<tr>
+		<td><label for="profileImage">Profile Image</label></td>
+		<td><input type="file" id="profileImage" name="profileImage" required="required"></td>
+		</tr>
+	</tbody>
+	</table>
+	<table>
+	<thead>
+		<tr>
+			<th colspan="2">Address Details</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+		<td><label for="addressLine">Address Line</label></td>
+		<td><input type="text" id="addressLine" name="addressLine" placeholder="2-45 chars"  required="required"></td>
+		</tr>
+		<tr>
+		<td><label for="postCode">Post Code</label></td>
+		<td><input type="text" id="postCode" name="postCode" placeholder="Max 8 chars" required="required"></td>
+		</tr>
+		<tr>
+		<td><label for="city">City</label></td>
+		<td><input type="text" id="city" name="city" placeholder="2-45 chars" required="required"></td>
+		</tr>
+		<tr>
+		<td><label for="state">State</label></td>
+		<td><input type="text" id="state" name="state" placeholder="2-45 chars" required="required"></td>
+		</tr>
+		<tr>
+		<td><label for="countryCode">Country</label></td>
+		<td>
+		<select id="countryCode" name="countryCode">
+		<option value="IN">India</option>
+		</select></td>
+		</tr>
+	</tbody>
+	</table>
+	<table>
+		<tr>
+			<td colspan="2">
+				<input type="submit" value="Submit"/> 
+			</td>
+		</tr>
+	</table>
+	
+	</form>
+    
+</body>
+</html>
